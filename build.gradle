@@ -1,0 +1,38 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+ext{
+    helidonVersion = '2.5.1'
+}
+
+dependencies {
+    // import Helidon dependency management
+    implementation platform("io.helidon:helidon-dependencies:${project.helidonVersion}")
+
+    implementation 'io.helidon.microprofile.server:helidon-microprofile-server'
+    implementation 'io.helidon.microprofile.config:helidon-microprofile-config'
+    implementation group: 'org.microprofile-ext.config-ext', name: 'configsource-consul', version: '2.0.1'
+
+
+    runtimeOnly 'org.jboss:jandex'
+
+}
+
+application{
+    mainClass="org.example.Main"
+}
+
+sourceSets{
+    main{
+        output.resourcesDir = file ("${buildDir}/classes/java/main")
+    }
+}
+
